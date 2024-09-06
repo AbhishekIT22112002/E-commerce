@@ -33,6 +33,10 @@ const cartSlice = createSlice({
     
       // Round the total amount to two decimal places
       state.cartTotalAmount = parseFloat(state.cartTotalAmount.toFixed(2));
+      
+      localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+      localStorage.setItem('cartTotalQuantity', JSON.stringify(state.cartTotalQuantity));
+      localStorage.setItem('cartTotalAmount', JSON.stringify(state.cartTotalAmount));
     
       toast.success(`${productDetails.title} added to cart`, {
         position: "top-center",
