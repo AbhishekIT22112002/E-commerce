@@ -2,7 +2,6 @@ import React from 'react'
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart,clearCart, decreaseCart, getTotals } from "../app/cartSlice";
-
 import { Link } from "react-router-dom";
 
 const CheckoutCart = () => {
@@ -39,7 +38,7 @@ const CheckoutCart = () => {
         <div className="cart-empty">
           <p>Your cart is currently empty</p>
           <div className="start-shopping">
-            <Link to="/">
+            <Link to="/products">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -96,9 +95,9 @@ const CheckoutCart = () => {
                 <span className="amount">${(cart.cartTotalAmount+80).toFixed(2)}</span>
               </div>
               <p>Taxes and shipping Added</p>
-              <Link to = "/checkout"><button>Pay Now </button></Link>
+              <Link to = "/products"><button>Pay Now </button></Link>
               <div className="continue-shopping">
-                <Link to="/">
+                <Link to="/products">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"

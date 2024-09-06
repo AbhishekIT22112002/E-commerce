@@ -1,11 +1,11 @@
-import Home from "./components/Home";
+import LandingPage from "./components/LandingPage";
 import "./App.css"
 
 function App() {
   return (
     <>
-      <div>
-        <Home></Home>
+      <div>    
+        <LandingPage></LandingPage>
       </div>
     </>
   );

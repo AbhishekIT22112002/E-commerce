@@ -14,33 +14,48 @@ import { store } from "./app/store.js";
 import "react-toastify/ReactToastify.css"
 import { ToastContainer } from "react-toastify";
 import { getTotals } from "./app/cartSlice.js";
+import Home from "./components/Home.jsx";
+import ErrorPage from "./Pages/ErrorPage.jsx";
 
 
 const appRouter = createBrowserRouter([
   {
     path: "/",
     element: <App></App>,
+    errorElement :<ErrorPage></ErrorPage>,
+  },
+  {
+    path : "products",
+    element :<Home></Home>,
+    errorElement :<ErrorPage></ErrorPage>,
   },
   {
     path: "/login",
-    element: <Login></Login>,
+    element: <Navbar><Login></Login></Navbar>,
+    errorElement :<ErrorPage></ErrorPage>,
   },
   {
     path: "/signup",
-    element: <SignUp></SignUp>,
+    element: <Navbar><SignUp></SignUp></Navbar>,
+    errorElement :<ErrorPage></ErrorPage>,
   },
   {
     path: "/cart",
-    element: <Cart></Cart>,
+    element: <Navbar><Cart></Cart></Navbar>,
+    errorElement :<ErrorPage></ErrorPage>,
   },
   {
     path: "/checkout",
-    element: <Checkout></Checkout>,
+    element: <Navbar><Checkout></Checkout></Navbar>,
+    errorElement :<ErrorPage></ErrorPage>,
   },
   {
     path: "/product-details/:id",
     element: <Navbar><ProductDetails></ProductDetails></Navbar>,
+    errorElement :<ErrorPage></ErrorPage>,
   },
+  
+  
 ]);
 
 store.dispatch(getTotals());

@@ -40,10 +40,10 @@ const filters = [
     id: "category",
     name: "Category",
     options: [
-      { value: "beauty", label: "beauty", checked: false },
-      { value: "fragrances", label: "fragrances", checked: false },
-      { value: "furniture", label: "furniture", checked: false },
-      { value: "groceries", label: "groceries", checked: false },
+      { value: "beauty", label: "Beauty", checked: false },
+      { value: "fragrances", label: "Fragrances", checked: false },
+      { value: "furniture", label: "Furniture", checked: false },
+      { value: "groceries", label: "Groceries", checked: false },
     ],
   },
    
