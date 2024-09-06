@@ -4,6 +4,7 @@ import { Hourglass } from "react-loader-spinner";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../app/cartSlice";
+import { useNavigate } from "react-router-dom";
 
 
 const ProductDetails = () => {
@@ -11,6 +12,7 @@ const ProductDetails = () => {
   const dispatch = useDispatch();
   const { data, loading, error } = useFetchProducts("https://dummyjson.com/products");
   const { id } = useParams();
+  const navigate = useNavigate();
 
 
   useEffect(() => {
@@ -47,7 +49,7 @@ const ProductDetails = () => {
     } else {
       console.log("Product is not defined");
     }
- 
+ navigate("/cart")
   };
 
   function classNames(...classes) {
