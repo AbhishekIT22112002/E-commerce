@@ -72,7 +72,7 @@ const Cart = () => {
                 return (
                   <div className="cart-item" key={cartItem.id}>
                     <div className="cart-product">
-                    <img src={cartItem.images ? cartItem.images[key] : cartItem.thumbnail} alt={cartItem.title} />
+                    <img src={cartItem.images[0]} alt={cartItem.title} />
 
                       <div>
                         <h3>{cartItem.title}</h3>
