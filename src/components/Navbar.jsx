@@ -14,7 +14,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { Link } from 'react-router-dom';
-import {ToastContainer} from "react-toastify"
+import { useSelector } from "react-redux";
 
 
 const user = {
@@ -38,6 +38,9 @@ function classNames(...classes) {
 }
 
 const Navbar = ({ children }) => {
+  const  {cartTotalQuantity} = useSelector(state => state.cart)
+
+
   return (
     <>
       <div className="min-h-full">
@@ -86,7 +89,7 @@ const Navbar = ({ children }) => {
                   </button>
                   </Link>
                   <span className="inline-flex items-center rounded-full mb-5 -ml-3 z-0  bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
-                    3
+                  {cartTotalQuantity}
                   </span>
                   {/* Profile dropdown */}
                   <Menu as="div" className="relative ml-3">
@@ -184,7 +187,7 @@ const Navbar = ({ children }) => {
                 </button>
                 </Link>
                 <span className="inline-flex items-center rounded-full mb-7 -ml-3 z-0 bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
-                  3
+                {cartTotalQuantity}
                 </span>
               </div>
               <div className="mt-3 space-y-1 px-2">

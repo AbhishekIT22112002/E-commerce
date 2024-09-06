@@ -33,7 +33,7 @@ const cartSlice = createSlice({
     
       // Round the total amount to two decimal places
       state.cartTotalAmount = parseFloat(state.cartTotalAmount.toFixed(2));
-      
+
       localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
       localStorage.setItem('cartTotalQuantity', JSON.stringify(state.cartTotalQuantity));
       localStorage.setItem('cartTotalAmount', JSON.stringify(state.cartTotalAmount));
@@ -113,7 +113,7 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, removeFromCart, decreaseCart, clearCart, getTotals, search } =
+export const { addToCart, removeFromCart, decreaseCart, clearCart, getTotals, search,cartTotalAmount, cartTotalQuantity } =
   cartSlice.actions;
 
 export default cartSlice.reducer;
