@@ -8,6 +8,10 @@ const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const dispatch =useDispatch()
 
+  useEffect(() => {
+    dispatch(getTotals());
+  }, [cart, dispatch]);
+
   function handleRemoveFromCart(cartItem){
       dispatch(removeFromCart(cartItem));
       console.log(cartItem)
@@ -17,6 +21,14 @@ const Cart = () => {
     dispatch(addToCart(product))
   }
   
+  function handleDecreaseCart(product){
+    dispatch(decreaseCart(product));
+  }
+  function handleClearCart(){
+    dispatch(clearCart());
+  }
+
+ 
 
   var Size = Object.keys(cart.cartItems);
   console.log(Object.values(cart.cartItems))
