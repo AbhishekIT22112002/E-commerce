@@ -1,18 +1,22 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, removeFromCart } from "../app/cartSlice";
+import { addToCart, removeFromCart,clearCart, decreaseCart, getTotals } from "../app/cartSlice";
 
 import { Link } from "react-router-dom";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const dispatch =useDispatch()
-  function handleRemoveFromCart(cartItem){
 
+  function handleRemoveFromCart(cartItem){
       dispatch(removeFromCart(cartItem));
       console.log(cartItem)
   }
-  console.log(cart)
+
+  function handleAddToCart(product){
+    dispatch(addToCart(product))
+  }
+  
 
   var Size = Object.keys(cart.cartItems);
   console.log(Object.values(cart.cartItems))
