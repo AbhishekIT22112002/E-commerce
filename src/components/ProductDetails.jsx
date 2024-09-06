@@ -5,15 +5,13 @@ import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../app/cartSlice";
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
 
 const ProductDetails = () => {
   const [product, setProduct] = useState(null);
   const dispatch = useDispatch();
   const { data, loading, error } = useFetchProducts("https://dummyjson.com/products");
   const { id } = useParams();
+
 
   useEffect(() => {
     if (data) {
@@ -44,8 +42,18 @@ const ProductDetails = () => {
   }
 
   const handleAddToCart = () => {
-    dispatch(addToCart(product));
+    if (product) {
+      dispatch(addToCart(product));
+    } else {
+      console.log("Product is not defined");
+    }
+ 
   };
+
+  function classNames(...classes) {
+    return classes.filter(Boolean).join("");
+  }
+  
 
   return (
     <div className="bg-white">

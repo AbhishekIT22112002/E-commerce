@@ -15,10 +15,11 @@ const Cart = () => {
   console.log(cart)
 
   var Size = Object.keys(cart.cartItems);
+  console.log(Object.values(cart.cartItems))
   return (
     <div className="cart-container">
       <h2>Shopping Cart</h2>
-      {Size.length === 0 ? (
+      {Size.length == 0 ? (
         <div className="cart-empty">
           <p>Your cart is currently empty</p>
           <div className="start-shopping">
@@ -55,7 +56,8 @@ const Cart = () => {
                 return (
                   <div className="cart-item" key={cartItem.id}>
                     <div className="cart-product">
-                      <img src={cartItem.images[0]} alt={cartItem.title} />
+                    <img src={cartItem.images ? cartItem.images[key] : cartItem.thumbnail} alt={cartItem.title} />
+
                       <div>
                         <h3>{cartItem.title}</h3>
                         <p>{cartItem.description}</p>
