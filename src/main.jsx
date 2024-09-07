@@ -1,3 +1,4 @@
+import React from "react";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -14,8 +15,10 @@ import { store } from "./app/store.js";
 import "react-toastify/ReactToastify.css"
 import { ToastContainer } from "react-toastify";
 import { getTotals } from "./app/cartSlice.js";
-import Home from "./components/Home.jsx";
+// import Home from "./components/Home.jsx";
 import ErrorPage from "./Pages/ErrorPage.jsx";
+const  LazyProductDetails = React.lazy(() => import('./components/Home'))
+
 
 
 const appRouter = createBrowserRouter([
@@ -26,7 +29,7 @@ const appRouter = createBrowserRouter([
   },
   {
     path : "products",
-    element :<Home></Home>,
+    element :<React.Suspense fallback="Loading..."><LazyProductDetails></LazyProductDetails></React.Suspense>,
     errorElement :<ErrorPage></ErrorPage>,
   },
   {
