@@ -107,7 +107,7 @@ const ProductList = () => {
         );
       }
 
-      // Apply filters
+
       Object.keys(selectedFilters).forEach((filterKey) => {
         if (selectedFilters[filterKey].length > 0) {
           filtered = filtered.filter((item) =>
