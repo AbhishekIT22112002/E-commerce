@@ -38,7 +38,7 @@ const cartSlice = createSlice({
       localStorage.setItem('cartTotalQuantity', JSON.stringify(state.cartTotalQuantity));
       localStorage.setItem('cartTotalAmount', JSON.stringify(state.cartTotalAmount));
     
-      toast.success(`${productDetails.title} added to cart`, {
+      toast.success(`🛒 ${productDetails.title} added to cart`, {
         position: "top-center",
       });
     },
@@ -50,7 +50,7 @@ const cartSlice = createSlice({
       state.cartItems = nextCartItems;
       localStorage.setItem("cartItems", JSON.stringify(nextCartItems));
 
-      toast.error(`"${action.payload.title}" removed from cart`, {
+      toast.error(`"🛒 ${action.payload.title}" removed from cart`, {
         position: "top-center",
       });
     },
@@ -79,14 +79,19 @@ const cartSlice = createSlice({
       );
       state.cartTotalQuantity = quantity;
       state.cartTotalAmount = parseFloat(total.toFixed(2));
+      toast.info(`"🛒 ${action.payload.title}" Decreased Quantity`, {
+        position: "top-center",
+      });
       localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
     },
     clearCart(state, action) {
       state.cartItems = {};
-      toast.error("Cart Cleared", {
+     
+      toast.error(`"🛒 Cart Cleared`, {
         position: "top-center",
       });
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+      
     },
     getTotals(state, action) {
       const { total, quantity } = Object.values(state.cartItems).reduce(
