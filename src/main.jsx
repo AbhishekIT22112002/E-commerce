@@ -54,11 +54,7 @@ const appRouter = createBrowserRouter([
     element: <Navbar><ProductDetails></ProductDetails></Navbar>,
     errorElement :<ErrorPage></ErrorPage>,
   },
-  {
-    path : "/checkout",
-    element : <Checkout></Checkout>,
-    errorElement :<ErrorPage></ErrorPage>
-  }
+ 
   
 ]);
 
