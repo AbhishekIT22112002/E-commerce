@@ -1,9 +1,46 @@
 ## Github Link
 
+[![Live Demo](https://img.shields.io/badge/Live-Demo-blue)](https://e-commerce-eight-zeta-54.vercel.app/)
+
 [GitHub repository](https://github.com/AbhishekIT22112002/E-commerce/tree/main).
 
 ## Deployed Link
 [Deployed Link](https://e-commerce-eight-zeta-54.vercel.app/)
+
+## How to run file:
+
+
+## Installation
+
+Clone the repository:
+
+```bash
+    git https://github.com/AbhishekIT22112002/E-commerce.git
+```
+
+To access directory:
+
+```bash
+    cd E-commerce
+```
+
+Install dependencies:
+
+```bash
+    npm install
+```
+
+Start the development server:
+
+```bash
+    npm run dev
+```
+
+Build for production:
+
+```bash
+    npm run build
+```
 
 
 ##  Overview 
