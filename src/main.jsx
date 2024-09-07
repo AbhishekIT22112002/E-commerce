@@ -17,7 +17,6 @@ import { getTotals } from "./app/cartSlice.js";
 import Home from "./components/Home.jsx";
 import ErrorPage from "./Pages/ErrorPage.jsx";
 
-
 const appRouter = createBrowserRouter([
   {
     path: "/",
@@ -54,7 +53,6 @@ const appRouter = createBrowserRouter([
     element: <Navbar><ProductDetails></ProductDetails></Navbar>,
     errorElement :<ErrorPage></ErrorPage>,
   },
-  
   
 ]);
 

@@ -109,11 +109,23 @@ const cartSlice = createSlice({
       localStorage.setItem('cartTotalQuantity', JSON.stringify(state.cartTotalQuantity));
       localStorage.setItem('cartTotalAmount', JSON.stringify(state.cartTotalAmount));
     },
+    search(state, action) {
+      const searchTerm = action.payload.toLowerCase();
+      const filtered = Object.keys(state.cartItems).reduce((acc, key) => {
+        const item = state.cartItems[key];
+        if (item.title.toLowerCase().includes(searchTerm)) {
+          acc[key] = item;
+        }
+        return acc;
+      }, {});
+
+      state.filteredCartItems = filtered;
+    }
 
   },
 });
 
-export const { addToCart, removeFromCart, decreaseCart, clearCart, getTotals, search,cartTotalAmount, cartTotalQuantity } =
+export const { addToCart, removeFromCart, decreaseCart, clearCart, getTotals, search,cartTotalAmount, cartTotalQuantity, } =
   cartSlice.actions;
 
 export default cartSlice.reducer;

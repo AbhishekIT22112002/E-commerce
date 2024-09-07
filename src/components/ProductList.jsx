@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Dialog,
   DialogBackdrop,
@@ -11,6 +11,7 @@ import {
   MenuItem,
   MenuItems,
 } from "@headlessui/react";
+// import { XMarkIcon, ChevronDownIcon, StarIcon } from "@heroicons/react/solid";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
   ChevronDownIcon,
@@ -18,21 +19,23 @@ import {
   MinusIcon,
   PlusIcon,
   Squares2X2Icon,
-} from "@heroicons/react/20/solid";
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
   StarIcon,
 } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
 import useFetchProducts from "../utils/useFetch";
-import { useEffect } from "react";
 import { Hourglass } from "react-loader-spinner";
 
 const sortOptions = [
-  { name: "Best Rating", sort: "rating", order: "desc", current: false },
-  { name: "Price: Low to High", sort: "price", order: "asc", current: false },
-  { name: "Price: High to Low", sort: "price", order: "desc", current: false },
+  { name: "Best Rating", sort: "rating", order: "desc" },
+  { name: "Price: Low to High", sort: "price", order: "asc" },
+  { name: "Price: High to Low", sort: "price", order: "desc" },
+];
+const subCategories = [
+  { name: "Totes", href: "#" },
+  { name: "Backpacks", href: "#" },
+  { name: "Travel Bags", href: "#" },
+  { name: "Hip Bags", href: "#" },
+  { name: "Laptop Sleeves", href: "#" },
 ];
 
 const filters = [
@@ -40,109 +43,102 @@ const filters = [
     id: "category",
     name: "Category",
     options: [
-      { value: "beauty", label: "Beauty", checked: false },
-      { value: "fragrances", label: "Fragrances", checked: false },
-      { value: "furniture", label: "Furniture", checked: false },
-      { value: "groceries", label: "Groceries", checked: false },
+      { value: "beauty", label: "Beauty" },
+      { value: "fragrances", label: "Fragrances" },
+      { value: "furniture", label: "Furniture" },
+      { value: "groceries", label: "Groceries" },
     ],
   },
-   
 ];
 
 const ProductList = () => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-  const [filteredProducts, setFilteredProducts] = useState({});
-  const [product, setProduct] = useState([]);
-  const { data, loading, error } = useFetchProducts(
-    "https://dummyjson.com/products"
-  );
+  const [search, setSearch] = useState("");
+  const [selectedFilters, setSelectedFilters] = useState({});
+  const [sortedProducts, setSortedProducts] = useState([]);
+  const {
+    data: products,
+    loading,
+    error,
+  } = useFetchProducts("https://dummyjson.com/products");
 
-  function classNames(...classes) {
-    return classes.filter(Boolean).join(" ");
-  }
+  // Handle sorting
+  const handleSort = (option) => {
+    const sorted = [...sortedProducts].sort((a, b) => {
+      if (option.order === "asc") {
+        return a[option.sort] - b[option.sort];
+      } else {
+        return b[option.sort] - a[option.sort];
+      }
+    });
+    setSortedProducts(sorted);
+  };
+
+  // Handle filtering
+  const handleFilter = (e, section, option) => {
+    const { checked } = e.target;
+    setSelectedFilters((prevFilters) => {
+      const newFilters = { ...prevFilters };
+      if (!newFilters[section.id]) {
+        newFilters[section.id] = [];
+      }
+
+      if (checked) {
+        newFilters[section.id].push(option.value);
+      } else {
+        newFilters[section.id] = newFilters[section.id].filter(
+          (val) => val !== option.value
+        );
+      }
+
+      return newFilters;
+    });
+  };
+
+  // Apply search and filter logic
   useEffect(() => {
-    if (data) {
-      setProduct(data);
+    if (products) {
+      let filtered = products;
+
+      // Apply search
+      if (search) {
+        filtered = filtered.filter((item) =>
+          item.title.toLowerCase().includes(search.toLowerCase())
+        );
+      }
+
+      // Apply filters
+      Object.keys(selectedFilters).forEach((filterKey) => {
+        if (selectedFilters[filterKey].length > 0) {
+          filtered = filtered.filter((item) =>
+            selectedFilters[filterKey].includes(item[filterKey])
+          );
+        }
+      });
+
+      setSortedProducts(filtered);
     }
-  }, [data]);
+  }, [products, search, selectedFilters]);
+
+  // Handle search input
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
 
   if (loading) {
     return (
       <div className="flex h-screen justify-center items-center">
-        <Hourglass
-          visible={true}
-          height="120"
-          width="120"
-          ariaLabel="dna-loading"
-          wrapperStyle={{}}
-          wrapperClass="dna-wrapper"
-        />
+        <Hourglass visible height="120" width="120" />
       </div>
     );
   }
 
   if (error) {
-    return <p>Error: {error}</p>;
+    return <p>Error: {error.message}</p>;
   }
-
-  const handleFilter = (e, section, option) => {
-    const { checked } = e.target;
-    if (checked) {
-      if (!filteredProducts[section.id]) {
-        filteredProducts[section.id] = [option.value];
-      } else {
-        filteredProducts[section.id].push(option.value);
-      }
-    } else {
-      if (filteredProducts[section.id]) {
-        const index = filteredProducts[section.id].findIndex(
-          (el) => el === option.value
-        );
-        if (index !== -1) {
-          filteredProducts[section.id].splice(index, 1);
-        }
-      }
-    }
-
-    let products = data;
-    for (const key in filteredProducts) {
-      if (filteredProducts[key].length > 0) {
-        products = products.filter((item) =>
-          filteredProducts[key].includes(item[key])
-        );
-      }
-    }
-
-    setProduct(products);
-  };
-
-  const handleSort = (option) => {
-    const { sort, order } = option;
-    const sortedProducts = [...product];
-
-    sortedProducts.sort((a, b) => {
-      if (order === "asc") {
-        if (sort === "price") {
-          return a.price - b.price;
-        } else if (sort === "rating") {
-          return a.rating - b.rating;
-        }
-      } else if (order === "desc") {
-        if (sort === "price") {
-          return b.price - a.price;
-        } else if (sort === "rating") {
-          return b.rating - a.rating;
-        }
-      }
-    });
-
-    setProduct(sortedProducts);
-  };
-
-  const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
-
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(" ");
+  }
 
   return (
     <>
@@ -204,7 +200,7 @@ const ProductList = () => {
                         </DisclosureButton>
                       </h3>
                       <DisclosurePanel className="pt-6">
-                        <div key = {`${section.id+1}`} className="space-y-6">
+                        <div key={`${section.id + 1}`} className="space-y-6">
                           {section.options.map((option, optionIdx) => (
                             <div
                               key={option.value}
@@ -215,7 +211,7 @@ const ProductList = () => {
                                 defaultChecked={option.checked}
                                 id={`filter-mobile-${section.id}-${optionIdx}`}
                                 name={`${section.id}[]`}
-                                key = {section.id}
+                                key={section.id}
                                 type="checkbox"
                                 onChange={(e) =>
                                   handleFilter(e, section, option)
@@ -370,9 +366,22 @@ const ProductList = () => {
                   {" "}
                   <div className="bg-white">
                     <div className="mx-auto max-w-2xl px-4 py-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
+                      <div className="relative py-7  rounded-md shadow-sm">
+                        <input
+                          id="search"
+                          name="search"
+                          type="text"
+                          placeholder="Search 🔍 ..."
+                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          onChange={handleSearch}
+                        />
+                      </div>
                       <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-                        {product.map((product) => (
-                          <Link to= {`/product-details/${product.id}`} key = {product.id}>
+                        {sortedProducts.map((product) => (
+                          <Link
+                            to={`/product-details/${product.id}`}
+                            key={product.id}
+                          >
                             <div
                               key={product.id}
                               className="group relative border-solid border-2 p-2 border-gray-200"
@@ -425,7 +434,6 @@ const ProductList = () => {
               </div>
             </section>
             {/* pagination */}
-           
           </main>
         </div>
       </div>
