@@ -14,7 +14,6 @@ const Cart = () => {
 
   function handleRemoveFromCart(cartItem){
       dispatch(removeFromCart(cartItem));
-      console.log(cartItem)
   }
 
   function handleAddToCart(product){

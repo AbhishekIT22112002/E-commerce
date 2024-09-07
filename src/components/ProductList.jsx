@@ -365,7 +365,7 @@ const ProductList = () => {
                           id="search"
                           name="search"
                           type="text"
-                          autocomplete="off"
+                    
                           placeholder="Search 🔍 ..."
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                           onChange={handleSearch}
@@ -391,13 +391,13 @@ const ProductList = () => {
                               <div className="mt-4 flex justify-between">
                                 <div>
                                   <h3 className="text-sm text-gray-700">
-                                    <a href={product.thumbnail}>
+                                    <p>
                                       <span
                                         aria-hidden="true"
                                         className="absolute inset-0"
                                       />
                                       {product.title}
-                                    </a>
+                                    </p>
                                   </h3>
                                   <p className="mt-1 text-sm text-gray-500">
                                     <StarIcon className="w-6 h-6 inline"></StarIcon>
