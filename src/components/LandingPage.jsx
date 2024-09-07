@@ -19,106 +19,139 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { Link } from "react-router-dom";
 import "./LandingPage.css";
-
-const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Team", href: "#", current: false },
-  { name: "Projects", href: "#", current: false },
-  { name: "Calendar", href: "#", current: false },
-];
+import { useSelector } from "react-redux";
 
 const LandingPage = () => {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.3 });
+  const { cartTotalQuantity } = useSelector((state) => state.cart);
+
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
 
+  
   return (
     <>
-      <Disclosure as="nav" className="bg-gray-800">
-        <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-          <div className="relative flex h-16 items-center justify-between">
-            <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-              {/* Mobile menu button*/}
-              <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-                <span className="absolute -inset-0.5" />
-                <span className="sr-only">Open main menu</span>
-                <Bars3Icon
-                  aria-hidden="true"
-                  className="block h-6 w-6 group-data-[open]:hidden"
-                />
-                <XMarkIcon
-                  aria-hidden="true"
-                  className="hidden h-6 w-6 group-data-[open]:block"
-                />
-              </DisclosureButton>
-            </div>
-            <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-              <div className="flex flex-shrink-0 items-center">
-                <img
-                  alt="Your Company"
-                  src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                  className="h-8 w-auto"
-                />
-              </div>
-              <div className="hidden sm:ml-6 sm:block">
-                <div className="flex space-x-4">
+ 
+      
+       <Disclosure as="nav" className="bg-gray-800">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="flex h-16 items-center justify-between">
+              <div className="flex items-center">
+                <div className="flex-shrink-0">
                   <Link to="/">
-                    <DisclosureButton className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">
-                      {"Home"}
-                    </DisclosureButton>
-                  </Link>
-                  <Link to="/products">
-                    <DisclosureButton className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">
-                      {"Product"}
-                    </DisclosureButton>
-                  </Link>
-                  <Link to="/login">
-                    <DisclosureButton className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">
-                      {"Login"}
-                    </DisclosureButton>
+                    <img
+                      alt="Your Company"
+                      src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                      className="h-8 w-8"
+                    />
                   </Link>
                 </div>
               </div>
-            </div>
-            <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-              <Link to="/cart">
-                <button
-                  type="button"
-                  className="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                >
-                  <span className="absolute -inset-1.5" />
-
-                  <ShoppingCartIcon aria-hidden="true" className="h-6 w-6" />
-                </button>
-              </Link>
-              <span className="inline-flex items-center rounded-full mb-7 -ml-3 z-0 bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
-                {/* {cartTotalQuantity} */}3
-              </span>
+              <div className="hidden md:block">
+                <div className="ml-10 flex items-center space-x-4"></div>
+              </div>
+              <div className="hidden md:block">
+                <div className="ml-4 flex items-center md:ml-6">
+                  <Link to="/"><p
+                    className={classNames(
+                      "text-gray-300 hover:bg-gray-700 hover:text-white ",
+                      "rounded-md px-3 py-2 text-md font-medium font-bold"
+                    )}
+                  >
+                    {"Home"}
+                  </p>
+                  </Link>
+                  <Link to="/products">
+                    <p
+                      className={classNames(
+                        "text-gray-300 hover:bg-gray-700 hover:text-white ",
+                        "rounded-md px-3 py-2 text-md font-medium font-bold"
+                      )}
+                    >
+                      {"Products"}
+                    </p>
+                  </Link>
+                  <Link to="/login">
+                    <p
+                      className={classNames(
+                        "text-gray-300 hover:bg-gray-700 hover:text-white ",
+                        "rounded-md px-3 py-2 text-md font-medium font-bold"
+                      )}
+                    >
+                      {"Login"}
+                    </p>
+                  </Link>
+                  <Link to="/cart">
+                    <button
+                      type="button"
+                      className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                    >
+                      <span className="absolute -inset-1.5" />
+                      <ShoppingCartIcon
+                        aria-hidden="true"
+                        className="h-6 w-6"
+                      />
+                    </button>
+                  </Link>
+                  <span className="inline-flex items-center rounded-full mb-5 -ml-3 z-0  bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
+                    {cartTotalQuantity}
+                  </span>
+                </div>
+              </div>
+              <div className="-mr-2 flex md:hidden">
+                {/* Mobile menu button */}
+                <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                  <span className="absolute -inset-0.5" />
+                  <span className="sr-only">Open main menu</span>
+                  <Bars3Icon
+                    aria-hidden="true"
+                    className="block h-6 w-6 group-data-[open]:hidden"
+                  />
+                  <XMarkIcon
+                    aria-hidden="true"
+                    className="hidden h-6 w-6 group-data-[open]:block"
+                  />
+                </DisclosureButton>
+              </div>
             </div>
           </div>
-        </div>
 
-        <DisclosurePanel className="sm:hidden">
-          <div className="space-y-1 px-2 pb-3 pt-2">
-            <Link to="/">
-              <DisclosureButton className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">
-                {"Home"}
-              </DisclosureButton>
-            </Link>
-            <Link to="/products">
-              <DisclosureButton className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">
-                {"Product"}
-              </DisclosureButton>
-            </Link>
-            <Link to="/login">
-              <DisclosureButton className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">
-                {"Login"}
-              </DisclosureButton>
-            </Link>
-          </div>
-        </DisclosurePanel>
-      </Disclosure>
+          <DisclosurePanel className="md:hidden">
+            <div className="border-t border-gray-700 pb-3 pt-4">
+              <div className="flex items-center px-5">
+                <Link to="/cart">
+                  <button
+                    type="button"
+                    className="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  >
+                    <span className="absolute -inset-1.5" />
+                    <ShoppingCartIcon aria-hidden="true" className="h-6 w-6" />
+                  </button>
+                </Link>
+                <span className="inline-flex items-center rounded-full mb-7 -ml-3 z-0 bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
+                  {cartTotalQuantity}
+                </span>
+              </div>
+              <div className="mt-3 space-y-1 px-2">
+                <Link to="/">
+                  <DisclosureButton className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">
+                    {"Home"}
+                  </DisclosureButton>
+                </Link>
+                <Link to="/products">
+                  <DisclosureButton className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">
+                    {"Product"}
+                  </DisclosureButton>
+                </Link>
+                <Link to="/login">
+                  <DisclosureButton className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">
+                    {"Login"}
+                  </DisclosureButton>
+                </Link>
+              </div>
+            </div>
+          </DisclosurePanel>
+        </Disclosure>
       <div className="relative">
        
         <section
@@ -136,12 +169,12 @@ const LandingPage = () => {
             <p className="mt-6 text-2xl font-light animate-fadeInUp delay-1s">
               Shop with the best deals every day
             </p>
-            <a
-              href="#shop-now"
+            <Link
+             to="/products"
               className="mt-10 px-10 py-5 bg-gray-800 hover:bg-orange-600 text-white rounded-full text-xl shadow-lg hover:shadow-2xl transition-all duration-300 animate-fadeInUp delay-2s"
             >
               Shop Now
-            </a>
+            </Link>
             <ArrowDownIcon className="w-10 h-10 mt-10 text-white animate-bounce" />
           </div>
         </section>
@@ -151,7 +184,9 @@ const LandingPage = () => {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mx-auto max-w-7xl">
             {/* Beauty Products Card */}
+            
             <div className="group relative bg-white shadow-lg rounded-lg overflow-hidden transform transition-all duration-300 hover:scale-105">
+              <Link to = '/products'>
               <img
                 src="https://wallpapercave.com/wp/wp12180161.jpg"
                 alt="Beauty Products"
@@ -161,10 +196,12 @@ const LandingPage = () => {
               <div className="absolute inset-0 flex items-center justify-center text-white text-2xl font-bold opacity-0 group-hover:opacity-100 transition-all duration-300">
                 Beauty Products
               </div>
+              </Link>
             </div>
 
             {/* Fragrance Card */}
             <div className="group relative bg-white shadow-lg rounded-lg overflow-hidden transform transition-all duration-300 hover:rotate-3">
+            <Link to = '/products'> 
               <img
                 src="https://wallpapercave.com/wp/wp13894928.jpg"
                 alt="Fragrance"
@@ -174,10 +211,12 @@ const LandingPage = () => {
               <div className="absolute inset-0 flex items-center justify-center text-white text-2xl font-bold opacity-0 group-hover:opacity-100 transition-all duration-300">
                 Fragrance
               </div>
+             </Link>
             </div>
 
             {/* Furniture Card */}
             <div className="group relative bg-white shadow-lg rounded-lg overflow-hidden transform transition-all duration-300 hover:scale-105">
+            <Link to = '/products'> 
               <img
                 src="https://wallpapercave.com/wp/wp9625932.jpg"
                 alt="Furniture"
@@ -187,10 +226,12 @@ const LandingPage = () => {
               <div className="absolute inset-0 flex items-center justify-center text-white text-2xl font-bold opacity-0 group-hover:opacity-100 transition-all duration-300">
                 Furniture
               </div>
+              </Link>
             </div>
 
             {/* Groceries Card */}
             <div className="group relative bg-white shadow-lg rounded-lg overflow-hidden transform transition-all duration-300 hover:rotate-3">
+            <Link to = '/products'> 
               <img
                 src="https://wallpapercave.com/wp/wp10044776.jpg"
                 alt="Groceries"
@@ -200,7 +241,9 @@ const LandingPage = () => {
               <div className="absolute inset-0 flex items-center justify-center text-white text-2xl font-bold opacity-0 group-hover:opacity-100 transition-all duration-300">
                 Groceries
               </div>
+              </Link>
             </div>
+            
           </div>
         </section>
 
@@ -227,12 +270,12 @@ const LandingPage = () => {
               <h3 className="text-4xl font-extrabold mb-4">
                 50% Off on Selected Items
               </h3>
-              <a
-                href="#deals"
+              <Link
+                to = "/products"
                 className="mt-6 inline-block px-8 py-4 bg-gray-800 text-white rounded-full hover:bg-orange-600 transition-all text-xl font-bold shadow-lg hover:shadow-xl"
               >
                 View Deals
-              </a>
+              </Link>
             </div>
           </div>
         </section>

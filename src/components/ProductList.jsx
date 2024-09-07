@@ -278,13 +278,7 @@ const ProductList = () => {
                   </MenuItems>
                 </Menu>
 
-                <button
-                  type="button"
-                  className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7"
-                >
-                  <span className="sr-only">View grid</span>
-                  <Squares2X2Icon aria-hidden="true" className="h-5 w-5" />
-                </button>
+             
                 <button
                   type="button"
                   onClick={() => setMobileFiltersOpen(true)}
@@ -371,6 +365,7 @@ const ProductList = () => {
                           id="search"
                           name="search"
                           type="text"
+                          autocomplete="off"
                           placeholder="Search 🔍 ..."
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                           onChange={handleSearch}

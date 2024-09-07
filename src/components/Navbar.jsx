@@ -15,10 +15,6 @@ import {
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Team", href: "#", current: false },
-];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");

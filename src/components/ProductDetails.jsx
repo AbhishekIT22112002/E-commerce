@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../app/cartSlice";
 import { useNavigate } from "react-router-dom";
+import ErrorPage from "../Pages/ErrorPage";
 
 
 const ProductDetails = () => {
@@ -12,7 +13,12 @@ const ProductDetails = () => {
   const dispatch = useDispatch();
   const { data, loading, error } = useFetchProducts("https://dummyjson.com/products");
   const { id } = useParams();
+  
   const navigate = useNavigate();
+  const params = useParams();
+  const item = data.filter((book) => {
+    return book.id === parseInt(params.id); // Ensure params.id is compared as a number
+  });
 
 
   useEffect(() => {
@@ -58,6 +64,10 @@ const ProductDetails = () => {
   
 
   return (
+    <>
+    {item.length === 0 ? (
+      <ErrorPage></ErrorPage>
+    ) : (
     <div className="bg-white">
       {product && (
         <div className="bg-white">
@@ -80,7 +90,7 @@ const ProductDetails = () => {
             </nav>
 
             {/* Image gallery */}
-            <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+            <div className="mx-auto mt-6 max-w-2xl sm:px-6  lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
               <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
                 <img
                   alt={product.images}
@@ -167,7 +177,8 @@ const ProductDetails = () => {
           </div>
         </div>
       )}
-    </div>
+    </div>)}
+    </>
   );
 };
 
