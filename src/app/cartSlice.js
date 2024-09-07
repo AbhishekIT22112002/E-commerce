@@ -17,8 +17,15 @@ const cartSlice = createSlice({
       const productDetails = action.payload; 
       if (state.cartItems[itemId]) {
         state.cartItems[itemId].quantity += 1;
+        toast.info(`🛒 ${productDetails.title} Increase the quantity`, {
+          position: "top-center",
+        });
+     
       } else {
         state.cartItems[itemId] = { quantity: 1, ...productDetails };
+        toast.success(`🛒 ${productDetails.title} added to cart`, {
+          position: "top-center",
+        });
       }
     
       // Recalculate totals
@@ -38,9 +45,7 @@ const cartSlice = createSlice({
       localStorage.setItem('cartTotalQuantity', JSON.stringify(state.cartTotalQuantity));
       localStorage.setItem('cartTotalAmount', JSON.stringify(state.cartTotalAmount));
     
-      toast.success(`🛒 ${productDetails.title} added to cart`, {
-        position: "top-center",
-      });
+   
     },
     removeFromCart(state, action) {
       const nextCartItems = Object.keys(state.cartItems)
