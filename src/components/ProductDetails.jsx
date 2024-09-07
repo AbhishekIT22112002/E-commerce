@@ -13,14 +13,16 @@ const ProductDetails = () => {
   const { data, loading, error } = useFetchProducts(
     "https://dummyjson.com/products"
   );
+ /* The code snippet you provided is from a React component called `ProductDetails`.  */
   const { id } = useParams();
-
   const navigate = useNavigate();
   const params = useParams();
   const item = data.filter((book) => {
     return book.id === parseInt(params.id); // Ensure params.id is compared as a number
   });
 
+ /* The `useEffect` hook in the provided code snippet is responsible for updating the `product` state
+ based on the `data` and `id` values. : */
   useEffect(() => {
     if (data) {
       const productItem = data.find((item) => item.id === parseInt(id));

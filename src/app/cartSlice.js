@@ -12,6 +12,8 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+/* The `addToCart` function is a reducer function defined within a Redux Toolkit
+slice. This function is responsible for adding items to the shopping cart state in the Redux store. */
     addToCart(state, action) {
       const itemId = action.payload.id;
       const productDetails = action.payload; 
@@ -47,6 +49,8 @@ const cartSlice = createSlice({
     
    
     },
+  /* The `removeFromCart` function is a reducer function defined within a Redux Toolkit slice. This
+  function is responsible for removing an item from the shopping cart state in the Redux store. */
     removeFromCart(state, action) {
       const nextCartItems = Object.keys(state.cartItems)
         .filter((key) => state.cartItems[key].id !== action.payload.id)
@@ -59,6 +63,8 @@ const cartSlice = createSlice({
         position: "top-center",
       });
     },
+ /* The `decreaseCart` function is a reducer function within a Redux Toolkit slice that handles
+ decreasing the quantity of an item in the shopping cart. Here's a breakdown of what it does: */
     decreaseCart(state, action) {
       const itemKey = Object.keys(state.cartItems).find(
         (key) => state.cartItems[key].id === action.payload.id
@@ -89,6 +95,8 @@ const cartSlice = createSlice({
       });
       localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
     },
+/* The `clearCart` function is a reducer function within a Redux Toolkit slice that is responsible for
+clearing all items from the shopping cart state in the Redux store. */
     clearCart(state, action) {
       state.cartItems = {};
      
@@ -98,6 +106,8 @@ const cartSlice = createSlice({
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
       
     },
+/* The `getTotals` function within the Redux Toolkit slice is responsible for calculating the total
+quantity and total amount of all items in the shopping cart. Here's a breakdown of what it does: */
     getTotals(state, action) {
       const { total, quantity } = Object.values(state.cartItems).reduce(
         (cartTotal, cartItem) => {
@@ -119,6 +129,17 @@ const cartSlice = createSlice({
       localStorage.setItem('cartTotalQuantity', JSON.stringify(state.cartTotalQuantity));
       localStorage.setItem('cartTotalAmount', JSON.stringify(state.cartTotalAmount));
     },
+/**
+ * The `search` function filters items in the cart based on a search term and updates the
+ * `filteredCartItems` in the state.
+ * @param state - The `state` parameter in the `search` function likely contains information about the
+ * current state of the application, such as the items in the shopping cart. It may include properties
+ * like `cartItems` which is an object containing the items in the cart, and `filteredCartItems` which
+ * will store
+ * @param action - The `action` parameter in the `search` function represents an object that contains
+ * information about the action being performed. It typically includes a `payload` property that holds
+ * the search term used to filter items in the shopping cart.
+ */
     search(state, action) {
       const searchTerm = action.payload.toLowerCase();
       const filtered = Object.keys(state.cartItems).reduce((acc, key) => {

@@ -1,29 +1,35 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, removeFromCart,clearCart, decreaseCart, getTotals } from "../app/cartSlice";
+import {
+  addToCart,
+  removeFromCart,
+  clearCart,
+  decreaseCart,
+  getTotals,
+} from "../app/cartSlice";
 
 import { Link } from "react-router-dom";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
-  const dispatch =useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getTotals());
   }, [cart, dispatch]);
 
-  function handleRemoveFromCart(cartItem){
-      dispatch(removeFromCart(cartItem));
+  function handleRemoveFromCart(cartItem) {
+    dispatch(removeFromCart(cartItem));
   }
 
-  function handleAddToCart(product){
-    dispatch(addToCart(product))
+  function handleAddToCart(product) {
+    dispatch(addToCart(product));
   }
-  
-  function handleDecreaseCart(product){
+
+  function handleDecreaseCart(product) {
     dispatch(decreaseCart(product));
   }
-  function handleClearCart(){
+  function handleClearCart() {
     dispatch(clearCart());
   }
   var Size = Object.keys(cart.cartItems);
@@ -67,11 +73,11 @@ const Cart = () => {
                 return (
                   <div className="cart-item" key={cartItem.id}>
                     <div className="cart-product">
-                    <img src={cartItem.images[0]} alt={cartItem.title} />
+                      <img src={cartItem.images[0]} alt={cartItem.title} />
 
                       <div>
                         <h3 className="font-bold">{cartItem.title}</h3>
-                      
+
                         <button onClick={() => handleRemoveFromCart(cartItem)}>
                           Remove
                         </button>
@@ -104,7 +110,9 @@ const Cart = () => {
                 <span className="amount">${cart.cartTotalAmount}</span>
               </div>
               <p>Taxes and shipping calculated at checkout</p>
-              <Link to = "/checkout"><button>Check out</button></Link>
+              <Link to="/checkout">
+                <button>Check out</button>
+              </Link>
               <div className="continue-shopping">
                 <Link to="/products">
                   <svg
@@ -128,7 +136,6 @@ const Cart = () => {
         </div>
       )}
     </div>
-    
   );
 };
 

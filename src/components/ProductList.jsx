@@ -30,13 +30,7 @@ const sortOptions = [
   { name: "Price: Low to High", sort: "price", order: "asc" },
   { name: "Price: High to Low", sort: "price", order: "desc" },
 ];
-const subCategories = [
-  { name: "Totes", href: "#" },
-  { name: "Backpacks", href: "#" },
-  { name: "Travel Bags", href: "#" },
-  { name: "Hip Bags", href: "#" },
-  { name: "Laptop Sleeves", href: "#" },
-];
+
 
 const filters = [
   {
@@ -106,7 +100,6 @@ const ProductList = () => {
           item.title.toLowerCase().includes(search.toLowerCase())
         );
       }
-
 
       Object.keys(selectedFilters).forEach((filterKey) => {
         if (selectedFilters[filterKey].length > 0) {
@@ -278,7 +271,6 @@ const ProductList = () => {
                   </MenuItems>
                 </Menu>
 
-             
                 <button
                   type="button"
                   onClick={() => setMobileFiltersOpen(true)}
@@ -365,7 +357,6 @@ const ProductList = () => {
                           id="search"
                           name="search"
                           type="text"
-                    
                           placeholder="Search 🔍 ..."
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                           onChange={handleSearch}

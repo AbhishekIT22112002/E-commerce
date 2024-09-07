@@ -15,12 +15,14 @@ import {
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 const Navbar = ({ children }) => {
+ /* The line `const { cartTotalQuantity } = useSelector((state) => state.cart);` is using the
+ `useSelector` hook from `react-redux` to extract the `cartTotalQuantity` value from the Redux store
+ state. */
   const { cartTotalQuantity } = useSelector((state) => state.cart);
 
   return (
@@ -45,14 +47,15 @@ const Navbar = ({ children }) => {
               </div>
               <div className="hidden md:block">
                 <div className="ml-4 flex items-center md:ml-6">
-                  <Link to="/"><p
-                    className={classNames(
-                      "text-gray-300 hover:bg-gray-700 hover:text-white ",
-                      "rounded-md px-3 py-2 text-md font-medium font-bold"
-                    )}
-                  >
-                    {"Home"}
-                  </p>
+                  <Link to="/">
+                    <p
+                      className={classNames(
+                        "text-gray-300 hover:bg-gray-700 hover:text-white ",
+                        "rounded-md px-3 py-2 text-md font-medium font-bold"
+                      )}
+                    >
+                      {"Home"}
+                    </p>
                   </Link>
                   <Link to="/products">
                     <p
