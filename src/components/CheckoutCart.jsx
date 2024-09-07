@@ -33,7 +33,7 @@ const CheckoutCart = () => {
   return (
     <div>
        <div className="cart-container">
-      <h2>Checkout Your Products</h2>
+      <h2>Order Summary</h2>
       {Size.length == 0 ? (
         <div className="cart-empty">
           <p>Your cart is currently empty</p>
@@ -82,7 +82,7 @@ const CheckoutCart = () => {
                     <div className="cart-product-price">${cartItem.price}</div>
                       <div className="count">{cartItem.quantity}</div>     
                     <div className="cart-product-total-price">
-                      ${cartItem.price * cartItem.quantity}
+                      ${(cartItem.price * cartItem.quantity).toFixed(2)}
                     </div>
                   </div>
                 );
@@ -92,9 +92,9 @@ const CheckoutCart = () => {
             <div className="cart-checkout">
               <div className="subtotal">
                 <span>Subtotal</span>
-                <span className="amount">${(cart.cartTotalAmount+80).toFixed(2)}</span>
+                <span className="amount">${(cart.cartTotalAmount+10).toFixed(2)}</span>
               </div>
-              <p>Taxes and shipping Added</p>
+              <p> $10 Taxes and shipping Added</p>
               <Link to = "/products"><button>Pay Now </button></Link>
               <div className="continue-shopping">
                 <Link to="/products">
@@ -123,4 +123,4 @@ const CheckoutCart = () => {
   )
 }
 
-export default CheckoutCart
+export default CheckoutCart;
